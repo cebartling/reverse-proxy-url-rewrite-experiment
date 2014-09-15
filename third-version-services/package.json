@@ -1,0 +1,11 @@
+{
+  "name": "third-version-services",
+  "description": "ReSTful services for testing API proxying.",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.9.0"
+  }
+}
+
+
