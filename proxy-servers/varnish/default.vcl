@@ -16,10 +16,10 @@ backend default {
     # .between_bytes_timeout  = 2s;     # How long to wait between bytes received from our backend?
 }
 
-# backend sinatra {
-#     .host = "127.0.0.1";
-#     .port = "4567";
-# }
+backend sinatra {
+    .host = "127.0.0.1";
+    .port = "4567";
+}
 
 # backend nodejs {
 #     .host = "127.0.0.1";
@@ -29,7 +29,9 @@ backend default {
 # Handle the HTTP request received by the client
 sub vcl_recv {
 	if (req.url ~ "^/api/v1/products") {
-        set req.backend_hint = default;
+        set req.backend_hint = sinatra;
+    } else if (req.url ~ "^/api/v2/products") {
+        set req.backend_hint = sinatra;
     } else {
         set req.backend_hint = default;
     }
