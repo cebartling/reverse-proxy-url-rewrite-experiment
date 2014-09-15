@@ -7,11 +7,11 @@ backend default {
     .port = "3000";
 }
 
-# Sinatra server
-# backend sinatra {
-#     .host = "127.0.0.1";
-#     .port = "4567";
-# }
+Sinatra server
+backend sinatra {
+    .host = "127.0.0.1";
+    .port = "4567";
+}
 
 # Node.js server
 # backend nodejs {
@@ -21,17 +21,17 @@ backend default {
 
 # Handle the HTTP request received by the client
 sub vcl_recv {
-	if (req.url ~ "^/api/v1") {
-        set req.backend_hint = default;
-    }
-
-	# if (req.url ~ "^/api/v1/products") {
-	#         set req.backend_hint = sinatra;
-	#     } else if (req.url ~ "^/api/v2/products") {
-	#         set req.backend_hint = sinatra;
-	#     } else {
+	# if (req.url ~ "^/api/v1") {
 	#         set req.backend_hint = default;
 	#     }
+
+	if (req.url ~ "^/api/v1/products") {
+        set req.backend_hint = sinatra;
+    } else if (req.url ~ "^/api/v2/products") {
+        set req.backend_hint = sinatra;
+    } else {
+        set req.backend_hint = default;
+    }
 
 
 	# if (req.url ~ "^/api/v1/products") {
